@@ -26,6 +26,23 @@ Shader "PointCloud/Record3D" {
         float2 _Range;
         float _ClipRange;
  
+		// Modified "rgb2hsv()" from this source: https://stackoverflow.com/a/17897228
+		float rgb2hue(float3 c) {
+			float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+			float4 p = lerp(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
+			float4 q = lerp(float4(p.xyw, c.r), float4(c.r, p.yzx), step(p.x, c.r));
+
+			float d = q.x - min(q.w, q.y);
+			float e = 1.0e-10;
+			return abs(q.z + (q.w - q.y) / (6.0 * d + e));
+		}
+
+		float getPixelDepth(float3 c) {
+			float hue = rgb2hue(c);
+			float pixelDepth = 3.0 * hue;
+			return pixelDepth;
+		}
+
         struct Input {
             float2 uv_DispTex;
 			float2 uv_MainTex;
