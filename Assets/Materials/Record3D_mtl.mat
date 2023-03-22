@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Record3D_mtl
-  m_Shader: {fileID: 4800000, guid: 1838753426ebcf549ace65055edacd3d, type: 3}
+  m_Shader: {fileID: 4800000, guid: 519f76d9c30f543db861fa7da6882cf1, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
