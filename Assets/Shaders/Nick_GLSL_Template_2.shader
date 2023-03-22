@@ -1,6 +1,6 @@
 ﻿// https://en.wikibooks.org/wiki/GLSL_Programming/Unity/Minimal_Shader
 
-Shader "Nick/GLSL_Template" {
+Shader "Nick/GLSL_Template_2" {
  
     SubShader { 
         Pass { 

@@ -1,6 +1,6 @@
 ﻿// https://en.wikibooks.org/wiki/GLSL_Programming/Unity/Minimal_Shader
 
-Shader "Nick/GLSL_Template_Test" {
+Shader "Record3D/GLSL_v002" {
 
     SubShader { 
         Pass { 
@@ -90,12 +90,16 @@ Shader "Nick/GLSL_Template_Test" {
 
                 vec3 ptPos = scale * vec3((iK.x * float(ptX) + iK.z) * currDepth, (iK.y * float(ptY) + iK.w) * currDepth, -currDepth);
             
-                vec4 mvPos = modelViewMatrix * vec4(ptPos, 1.0);
-                gl_Position = projectionMatrix * mvPos;
+                //vec4 mvPos = modelViewMatrix * vec4(ptPos, 1.0);
+                vec4 mvPos = gl_ModelViewMatrix * vec4(ptPos, 1.0);
+
+                //gl_Position = projectionMatrix * mvPos;
             
                 vPtPos = vec2(float(ptX), float(ptY));
                 vVertexIdx = vertexIdx;
                 gl_PointSize = ptSize;
+
+                gl_Position = gl_ModelViewProjectionMatrix * mvPos;
             }
 
             #endif

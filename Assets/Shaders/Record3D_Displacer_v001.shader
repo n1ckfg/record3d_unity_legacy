@@ -1,4 +1,4 @@
-Shader "PointCloud/Record3D" {
+Shader "Record3D/Displacer_v001" {
     
     Properties {
         _MainTex ("Texture", 2D) = "white" {}
