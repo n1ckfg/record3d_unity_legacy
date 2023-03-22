@@ -11,35 +11,6 @@
         Pass { 
             GLSLPROGRAM
 
-            #ifdef VERTEX 
-
-            uniform sampler2D _MainTex;	
-            uniform vec4 _MainTex_ST; 
-            varying vec4 textureCoordinates;
-
-            void main(void) {			
-                textureCoordinates = gl_MultiTexCoord0;
-                gl_Position = gl_ModelViewProjectionMatrix * gl_Vertex;
-            }
-
-            #endif
-
-
-            #ifdef FRAGMENT
-
-            uniform sampler2D _MainTex;
-            uniform vec4 _MainTex_ST;   
-            varying vec4 textureCoordinates;
-
-            void main() {
-                gl_FragColor = texture2D(_MainTex,  _MainTex_ST.xy * textureCoordinates.xy + _MainTex_ST.zw);	
-            }
-
-            #endif
-
-            ENDGLSL 
-
-            /*
             #ifdef VERTEX
 
             attribute float vertexIdx;
@@ -49,13 +20,15 @@
             varying float vShouldDiscard;
         
             uniform ivec2 texSize;
-            uniform sampler2D texImg;
+            uniform sampler2D _MainTex;
+            uniform vec4 _MainTex_ST; 
             uniform vec4 iK;
             uniform float scale;
             uniform float ptSize;
         
             // Filtering constants
             const int filterSize = 1;
+
             // In meters. Smaller values = more aggressive filtering
             const float depthThresholdFilter = 0.05; 
             const vec2 absoluteDepthRangeFilter = vec2(0.1, 2.8);
@@ -74,7 +47,7 @@
         
             float getPixelDepth(ivec2 pixel) {
                 vec2 lookupPt = (vec2(pixel) + vec2(0.5)) / vec2(texSize);
-                float hue = rgb2hue(texture2D(texImg, lookupPt).rgb);
+                float hue = rgb2hue(texture2D(_MainTex, lookupPt).rgb);
                 float pixelDepth = 3.0 * hue;
                 return pixelDepth;
             }
@@ -146,7 +119,7 @@
             varying float vShouldDiscard;
 
             uniform ivec2 texSize;
-            uniform sampler2D texImg;
+            uniform sampler2D _MainTex;
         
             void main() {
                 vec2 frameSizeF = vec2(texSize.x / 2, texSize.y);
@@ -159,7 +132,7 @@
                 }
             
                 vec2 lookupPt = (vec2(vPtPos.x + frameSizeF.x, vPtPos.y) + vec2(0.5)) / vec2(texSize); 
-                vec3 currColor = texture2D(texImg, lookupPt).rgb;
+                vec3 currColor = texture2D(_MainTex, lookupPt).rgb;
         
                 gl_FragColor = vec4(currColor, 1.0);
             }
@@ -167,7 +140,6 @@
             #endif
 
             ENDGLSL
-            */
         }
     }
 
